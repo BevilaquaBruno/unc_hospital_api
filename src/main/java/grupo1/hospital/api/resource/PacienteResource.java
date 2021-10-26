@@ -1,7 +1,11 @@
 package grupo1.hospital.api.resource;
 
+import java.util.List;
+
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -11,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import grupo1.hospital.api.paciente.Paciente;
 import grupo1.hospital.api.paciente.PacienteInterface;
-import grupo1.hospital.api.pessoa.Pessoa;
 
 @Path("paciente")
 public class PacienteResource {
@@ -29,9 +32,30 @@ public class PacienteResource {
 		return this.pacienteInterface.getPaciente(id);
 	}
 	
+	@GET
+	@Path("/todos")
+	@Produces("application/json")
+	public List<Paciente> getListaPaciente(){
+		return this.pacienteInterface.getListaPaciente();
+	}
+	
 	@POST
 	@Produces("application/json")
-	public Paciente createPaciente(@RequestBody() Paciente paciente) {
+	public Paciente cadastraPaciente(@RequestBody() Paciente paciente) {
 		return this.pacienteInterface.salvarPaciente(paciente);
+	}
+	
+	@PUT
+	@Path("/atualizar")
+	@Produces("application/json")
+	public Paciente atualizaPaciente(@RequestBody() Paciente paciente) {
+		return this.pacienteInterface.atualizarPaciente(paciente);
+	}
+	
+	@DELETE
+	@Path("/excluir")
+	@Produces("application/json")
+	public Boolean atualizaPaciente(@QueryParam("id") Integer id) {
+		return this.pacienteInterface.excluir(id);
 	}
 }

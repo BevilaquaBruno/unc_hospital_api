@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import grupo1.hospital.api.MySqlSingleton;
 import grupo1.hospital.api.pessoa.Pessoa;
@@ -44,4 +46,86 @@ public class PessoaDao {
         }
         return idPessoa;
     }
+    
+    public Boolean excluir(Integer id) {
+        String sql = "DELETE from pessoa WHERE id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, id);
+            stmt.execute();
+            
+            return true;
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
+    
+    public Boolean atualizar(Pessoa pessoa) {
+        String sql = "UPDATE pessoa SET nome = ?, cpf = ?, rg = ?,  dtNascimento = ?, telefone = ?, sexo = ? WHERE id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, pessoa.getNome());
+            stmt.setString(2, pessoa.getCpf());
+            stmt.setInt(3, pessoa.getRg());
+            stmt.setDate(4, Date.valueOf(pessoa.getDtNascimento()));
+            stmt.setString(5, pessoa.getTelefone());
+            stmt.setString(6, pessoa.getSexo());
+            stmt.setInt(7, pessoa.getIdPessoa());
+            stmt.execute();
+            
+            return true;
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
+    
+    public List<Pessoa> getTodasPessoas() {
+        String sql = "SELECT p.id, p.nome, p.rg, p.cpf, p.sexo, p.dtNascimento, p.telefone FROM pessoa p ";
+        List<Pessoa> pessoas = new ArrayList<Pessoa>();
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            ResultSet res = stmt.executeQuery();
+			while (res.next()) {
+				Pessoa p = new Pessoa(
+					res.getString("nome"), 
+					res.getString("cpf"), 
+					res.getInt("rg"),
+					res.getString("telefone"),
+					res.getDate("dtNascimento").toLocalDate(), 
+					res.getString("sexo"), 
+					res.getInt("id")
+				);
+				pessoas.add(p);
+			};
+        } catch (SQLException ex) {
+            pessoas = new ArrayList<Pessoa>();
+        }
+        return pessoas;
+    }
+    
+    public Pessoa findById(Integer id){
+		String sql = "SELECT p.id, p.nome, p.rg, p.cpf, p.sexo, p.dtNascimento, p.telefone FROM pessoa p WHERE id = ?";
+		Pessoa p = null;
+		try {
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setInt(1, id);
+			ResultSet res = stmt.executeQuery();
+			if (res.next()) {
+				p = new Pessoa(
+					res.getString("nome"), 
+					res.getString("cpf"), 
+					res.getInt("rg"),
+					res.getString("telefone"),
+					res.getDate("dtNascimento").toLocalDate(), 
+					res.getString("sexo"), 
+					res.getInt("id")
+				);
+			}
+		} catch (SQLException e) {
+			p = null;
+		}
+		
+		return p;
+	}
 }

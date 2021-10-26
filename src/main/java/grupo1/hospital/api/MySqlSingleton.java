@@ -18,7 +18,7 @@ public class MySqlSingleton {
 	public static Connection conectar() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			singletonConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/unc_hospital", "never publish your user in github", "never publish your password in github");
+			singletonConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/unc_hospital", "bevilaqua", "Vaporwave05");
 			return singletonConnection;
 		} catch (SQLException | ClassNotFoundException e) {
 			return null;

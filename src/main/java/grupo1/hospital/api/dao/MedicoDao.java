@@ -9,45 +9,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 import grupo1.hospital.api.MySqlSingleton;
-import grupo1.hospital.api.paciente.Paciente;
+import grupo1.hospital.api.medico.Medico;
 
-public class PacienteDao {
-	private Connection connection;
+public class MedicoDao {
+private Connection connection;
 	
-	public PacienteDao() {
+	public MedicoDao() {
 		this.connection = MySqlSingleton.getConnection();
 	}
 	
-    public Integer inserir(Paciente paciente) {
-        String sql = "INSERT INTO paciente(idPessoa, gravidade) VALUES(?,?)";
-        Integer idPaciente = 0;
+    public Integer inserir(Medico medico) {
+        String sql = "INSERT INTO medico(idPessoa, especialidade) VALUES(?,?)";
+        Integer idMedico = 0;
         try {
             PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setInt(1, paciente.getIdPessoa());
-            stmt.setInt(2, paciente.getGravidade());
+            stmt.setInt(1, medico.getIdPessoa());
+            stmt.setString(2, medico.getEspecialidade());
 
             int affectedRows = stmt.executeUpdate();
             if (affectedRows == 0)
-                idPaciente = 0;
+                idMedico = 0;
             try (ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
-                    idPaciente = rs.getInt(1);
+                    idMedico= rs.getInt(1);
                 }
                 rs.close();
             }
-            return idPaciente;
+            return idMedico;
         } catch (SQLException ex) {
             return 0;
         }
     }
     
-    public Boolean atualizar(Paciente paciente) {
-        String sql = "UPDATE paciente SET idPessoa = ?, gravidade = ? WHERE id = ?";
+    public Boolean atualizar(Medico medico) {
+        String sql = "UPDATE medico SET idPessoa = ?, especialidade = ? WHERE id = ?";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, paciente.getIdPessoa());
-            stmt.setInt(2, paciente.getGravidade());
-            stmt.setInt(3, paciente.getId());
+            stmt.setInt(1, medico.getIdPessoa());
+            stmt.setString(2, medico.getEspecialidade());
+            stmt.setInt(3, medico.getId());
             stmt.execute();
             
             return true;
@@ -57,7 +57,7 @@ public class PacienteDao {
     }
     
     public Boolean excluir(Integer id) {
-        String sql = "DELETE from paciente WHERE id = ?";
+        String sql = "DELETE from medico WHERE id = ?";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, id);
@@ -69,18 +69,18 @@ public class PacienteDao {
         }
     }
     
-    public List<Paciente> getTodosPacientes() {
-        String sql = "SELECT pc.id, pc.gravidade, ps.id as idPessoa, ps.nome, ps.rg, ps.cpf, "
+    public List<Medico> getTodosMedicos() {
+        String sql = "SELECT pc.id, pc.especialidade, ps.id as idPessoa, ps.nome, ps.rg, ps.cpf, "
 				+ "ps.sexo, ps.dtNascimento, ps.telefone "
-				+ "FROM paciente pc "
+				+ "FROM medico pc "
 				+ "INNER JOIN pessoa ps ON ps.id = pc.idPessoa ";
-        List<Paciente> pacientes = new ArrayList<Paciente>();
+        List<Medico> medicos = new ArrayList<Medico>();
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
 
             ResultSet res = stmt.executeQuery();
 			while (res.next()) {
-				Paciente p = new Paciente(
+				Medico m = new Medico(
 					res.getString("nome"), 
 					res.getString("cpf"), 
 					res.getInt("rg"),
@@ -88,31 +88,31 @@ public class PacienteDao {
 					res.getDate("dtNascimento").toLocalDate(), 
 					res.getString("sexo"), 
 					res.getInt("idPessoa"),
-					res.getInt("gravidade")
+					res.getString("especialidade")
 				);
-				p.setId(res.getInt("id"));
-				pacientes.add(p);
+				m.setId(res.getInt("id"));
+				medicos.add(m);
 			};
         } catch (SQLException ex) {
-            pacientes = new ArrayList<Paciente>();
+            medicos = new ArrayList<Medico>();
         }
-        return pacientes;
+        return medicos;
     }
     
-    public Paciente findById(Integer id){
+    public Medico findById(Integer id){
 		String sql = 
-				"SELECT pc.id, pc.gravidade, ps.id as idPessoa, ps.nome, ps.rg, ps.cpf, "
+				"SELECT pc.id, pc.especialidade, ps.id as idPessoa, ps.nome, ps.rg, ps.cpf, "
 				+ "ps.sexo, ps.dtNascimento, ps.telefone "
-				+ "FROM paciente pc "
+				+ "FROM medico pc "
 				+ "INNER JOIN pessoa ps ON ps.id = pc.idPessoa "
 				+ "WHERE pc.id = ?;";
-		Paciente p = null;
+		Medico m = null;
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setInt(1, id);
 			ResultSet res = stmt.executeQuery();
 			if (res.next()) {
-				p = new Paciente(
+				m = new Medico(
 					res.getString("nome"), 
 					res.getString("cpf"), 
 					res.getInt("rg"),
@@ -120,14 +120,14 @@ public class PacienteDao {
 					res.getDate("dtNascimento").toLocalDate(), 
 					res.getString("sexo"), 
 					res.getInt("idPessoa"),
-					res.getInt("gravidade")
+					res.getString("especialidade")
 				);
-				p.setId(res.getInt("id"));
+				m.setId(res.getInt("id"));
 			}
 		} catch (SQLException e) {
-			p = null;
+			m = null;
 		}
 		
-		return p;
+		return m;
 	}
 }

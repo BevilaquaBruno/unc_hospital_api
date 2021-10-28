@@ -57,6 +57,7 @@ public class PessoaService implements PessoaInterface{
 	}
 
 	@Override
+	@Produces("application/json")
 	public Boolean excluir(Integer id) {
 		pessoaDao = new PessoaDao();
 		return pessoaDao.excluir(id);

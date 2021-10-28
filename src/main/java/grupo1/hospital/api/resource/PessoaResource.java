@@ -55,7 +55,7 @@ public class PessoaResource {
 	@DELETE
 	@Path("/excluir")
 	@Produces("application/json")
-	public Boolean atualizaPessoa(@QueryParam("id") Integer id) {
+	public Boolean excluirPessoa(@QueryParam("id") Integer id) {
 		return this.pessoaInterface.excluir(id);
 	}
 }

@@ -6,8 +6,8 @@ import grupo1.hospital.api.pessoa.Pessoa;
 
 public class Paciente extends Pessoa {
 	
-	Integer id;
-	Integer gravidade;
+	private Integer id;
+	private Integer gravidade;
 
 	public Paciente(String nome, String cpf, Integer rg, String telefone, LocalDate dtNascimento, 
 			String sexo, Integer idPessoa, Integer gravidade) {

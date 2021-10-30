@@ -83,7 +83,7 @@ private Connection connection;
 			while (res.next()) {
 				Agenda m = new Agenda(
 					res.getDate("dtAgenda").toLocalDate(), 
-					res.getTime("idMedico").toLocalTime(),
+					res.getTime("horario").toLocalTime(),
 					res.getInt("idPaciente")
 				);
 				m.setId(res.getInt("id"));
@@ -105,7 +105,7 @@ private Connection connection;
 			if (res.next()) {
 				m = new Agenda(
 					res.getDate("dtAgenda").toLocalDate(), 
-					res.getTime("idMedico").toLocalTime(),
+					res.getTime("horario").toLocalTime(),
 					res.getInt("idPaciente")
 				);
 				m.setId(res.getInt("id"));

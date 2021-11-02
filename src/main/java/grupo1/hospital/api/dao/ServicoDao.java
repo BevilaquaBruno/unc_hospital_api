@@ -39,6 +39,7 @@ public class ServicoDao {
             }
             return idServico;
         } catch (SQLException ex) {
+        	System.out.print(ex);
             return 0;
         }
     }
@@ -56,6 +57,7 @@ public class ServicoDao {
             
             return true;
         } catch (SQLException ex) {
+        	System.out.print(ex);
             return false;
         }
     }
@@ -69,6 +71,7 @@ public class ServicoDao {
             
             return true;
         } catch (SQLException ex) {
+        	System.out.print(ex);
             return false;
         }
     }
@@ -91,6 +94,7 @@ public class ServicoDao {
 				servicos.add(m);
 			};
         } catch (SQLException ex) {
+        	System.out.print(ex);
         	servicos = new ArrayList<Servico>();
         }
         return servicos;
@@ -113,6 +117,7 @@ public class ServicoDao {
 				m.setId(res.getInt("id"));
 			}
 		} catch (SQLException e) {
+			System.out.print(e);
 			m = null;
 		}
 		

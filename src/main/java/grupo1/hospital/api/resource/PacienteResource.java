@@ -55,7 +55,7 @@ public class PacienteResource {
 	@DELETE
 	@Path("/excluir")
 	@Produces("application/json")
-	public Boolean atualizaPaciente(@QueryParam("id") Integer id) {
+	public Boolean excluirPaciente(@QueryParam("id") Integer id) {
 		return this.pacienteInterface.excluir(id);
 	}
 }

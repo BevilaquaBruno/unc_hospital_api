@@ -37,6 +37,7 @@ public class PacienteDao {
             }
             return idPaciente;
         } catch (SQLException ex) {
+        	System.out.print(ex);
             return 0;
         }
     }
@@ -52,6 +53,7 @@ public class PacienteDao {
             
             return true;
         } catch (SQLException ex) {
+        	System.out.print(ex);
             return false;
         }
     }
@@ -65,6 +67,7 @@ public class PacienteDao {
             
             return true;
         } catch (SQLException ex) {
+        	System.out.print(ex);
             return false;
         }
     }
@@ -94,6 +97,7 @@ public class PacienteDao {
 				pacientes.add(p);
 			};
         } catch (SQLException ex) {
+        	System.out.print(ex);
             pacientes = new ArrayList<Paciente>();
         }
         return pacientes;
@@ -125,6 +129,7 @@ public class PacienteDao {
 				p.setId(res.getInt("id"));
 			}
 		} catch (SQLException e) {
+			System.out.print(e);
 			p = null;
 		}
 		

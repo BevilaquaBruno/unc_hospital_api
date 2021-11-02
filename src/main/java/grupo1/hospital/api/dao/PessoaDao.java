@@ -42,6 +42,7 @@ public class PessoaDao {
                 rs.close();
             }
         } catch (SQLException ex) {
+        	System.out.print(ex);
         	idPessoa = 0;
         }
         return idPessoa;
@@ -56,6 +57,7 @@ public class PessoaDao {
             
             return true;
         } catch (SQLException ex) {
+        	System.out.print(ex);
             return false;
         }
     }
@@ -75,6 +77,7 @@ public class PessoaDao {
             
             return true;
         } catch (SQLException ex) {
+        	System.out.print(ex);
             return false;
         }
     }
@@ -99,6 +102,7 @@ public class PessoaDao {
 				pessoas.add(p);
 			};
         } catch (SQLException ex) {
+        	System.out.print(ex);
             pessoas = new ArrayList<Pessoa>();
         }
         return pessoas;
@@ -123,6 +127,7 @@ public class PessoaDao {
 				);
 			}
 		} catch (SQLException e) {
+			System.out.print(e);
 			p = null;
 		}
 		

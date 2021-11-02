@@ -37,6 +37,7 @@ private Connection connection;
             }
             return idMedico;
         } catch (SQLException ex) {
+        	System.out.print(ex);
             return 0;
         }
     }
@@ -52,6 +53,7 @@ private Connection connection;
             
             return true;
         } catch (SQLException ex) {
+        	System.out.print(ex);
             return false;
         }
     }
@@ -65,6 +67,7 @@ private Connection connection;
             
             return true;
         } catch (SQLException ex) {
+        	System.out.println(ex);
             return false;
         }
     }
@@ -94,6 +97,7 @@ private Connection connection;
 				medicos.add(m);
 			};
         } catch (SQLException ex) {
+        	System.out.print(ex);
             medicos = new ArrayList<Medico>();
         }
         return medicos;
@@ -125,6 +129,7 @@ private Connection connection;
 				m.setId(res.getInt("id"));
 			}
 		} catch (SQLException e) {
+			System.out.print(e);
 			m = null;
 		}
 		

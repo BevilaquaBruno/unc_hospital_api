@@ -59,6 +59,8 @@ public class MedicoService implements MedicoInterface{
 		
 		Boolean vp = pessoaDao.atualizar(pessoaMedico);
 		Boolean vpc = medicoDao.atualizar(medico);
+		System.out.println(vp);
+		System.out.println(vpc);
 		if(!vp || !vpc) {
 			medico.setId(0);
 			medico.setIdPessoa(0);
@@ -68,6 +70,7 @@ public class MedicoService implements MedicoInterface{
 	}
 
 	@Override
+	@Produces("application/json")
 	public Boolean excluir(Integer id) {
 		medicoDao = new MedicoDao();
 		return medicoDao.excluir(id);

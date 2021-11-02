@@ -40,6 +40,7 @@ private Connection connection;
             }
             return idInternacao;
         } catch (SQLException ex) {
+        	System.out.print(ex);
             return 0;
         }
     }
@@ -57,6 +58,7 @@ private Connection connection;
             
             return true;
         } catch (SQLException ex) {
+        	System.out.print(ex);
             return false;
         }
     }
@@ -70,6 +72,7 @@ private Connection connection;
             
             return true;
         } catch (SQLException ex) {
+        	System.out.print(ex);
             return false;
         }
     }
@@ -92,6 +95,7 @@ private Connection connection;
 				internacoes.add(i);
 			};
         } catch (SQLException ex) {
+        	System.out.print(ex);
         	internacoes = new ArrayList<Internacao>();
         }
         return internacoes;
@@ -114,6 +118,7 @@ private Connection connection;
 				i.setId(res.getInt("id"));
 			}
 		} catch (SQLException e) {
+			System.out.print(e);
 			i = null;
 		}
 		

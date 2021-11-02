@@ -38,6 +38,7 @@ public class EnfermeiroDao {
             }
             return idMedico;
         } catch (SQLException ex) {
+        	System.out.print(ex);
             return 0;
         }
     }
@@ -53,6 +54,7 @@ public class EnfermeiroDao {
             
             return true;
         } catch (SQLException ex) {
+        	System.out.print(ex);
             return false;
         }
     }
@@ -95,6 +97,7 @@ public class EnfermeiroDao {
 				enfermeiros.add(m);
 			};
         } catch (SQLException ex) {
+        	System.out.print(ex);
         	enfermeiros = new ArrayList<Enfermeiro>();
         }
         return enfermeiros;
@@ -126,6 +129,7 @@ public class EnfermeiroDao {
 				m.setId(res.getInt("id"));
 			}
 		} catch (SQLException e) {
+			System.out.print(e);
 			m = null;
 		}
 		

@@ -40,6 +40,7 @@ private Connection connection;
             }
             return idAgenda;
         } catch (SQLException ex) {
+        	System.out.print(ex);
             return 0;
         }
     }
@@ -69,6 +70,7 @@ private Connection connection;
             
             return true;
         } catch (SQLException ex) {
+        	System.out.print(ex);
             return false;
         }
     }
@@ -90,6 +92,7 @@ private Connection connection;
 				agendas.add(m);
 			};
         } catch (SQLException ex) {
+        	System.out.print(ex);
         	agendas = new ArrayList<Agenda>();
         }
         return agendas;
@@ -111,6 +114,7 @@ private Connection connection;
 				m.setId(res.getInt("id"));
 			}
 		} catch (SQLException e) {
+			System.out.print(e);
 			m = null;
 		}
 		

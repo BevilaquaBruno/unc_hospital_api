@@ -54,7 +54,7 @@ public class MedicoResource {
 	@DELETE
 	@Path("/excluir")
 	@Produces("application/json")
-	public Boolean atualizaMedico(@QueryParam("id") Integer id) {
+	public Boolean excluirMedico(@QueryParam("id") Integer id) {
 		return this.medicoInterface.excluir(id);
 	}
 }
